@@ -1,30 +1,23 @@
 const fs = require('fs');
 const path = require('path');
 
-function filterFolderNames(dirName, ext, callback) {
+function filterFileNames(dirName, ext, callback) {
     
     fs.readdir(dirName, (err, list) => {
-        if(err){
-            callback(err);
+        if (err) {
+            callback(err); //callback- pass the data back to the callback.
             return;
         }
-        
-        list.forEach((file) => {
-            // console.log("file path: ", filePath);
-            // console.log("ext: ", ext);
-            // ext = html
-            //path .extname (file ) ==.html
-            // console.log(file);
-
-            if('.'+ext === path.extname(file)) {
+        const filteredList = list.filter((file) => {
+            if ('.'+ ext === path.extname(file)) {
                 console.log(file);
             } else {
               return false
             };
-            
-        });
-
+        
+        })
+        callback(null, filteredList);
     });
 };
 
-module.exports = filterFolderNames;
+module.exports = filterFileNames;
